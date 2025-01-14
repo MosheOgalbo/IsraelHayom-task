@@ -1,2 +1,1 @@
 # IsraelHayom-task
-# IsraelHayom-task
