@@ -7,30 +7,20 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        md: '1rem',
+        lg: '1rem'
       },
-      theme: {
-        extend: {
-          colors: {
-            red: {
-              DEFAULT: '#FF5252',
-            },
-            black: {
-              DEFAULT: '#181818',
-            },
-            gray: {
-              DEFAULT: '#999999',
-            },
-          },
-          fontFamily: {
-            sans: ['Arial', 'sans-serif'],
-          },
-        },
-      },
-    },
+      screens: {
+        sm: '100%',
+        md: '150%',
+        lg: '672px'
+      }
+    }
   },
+
   plugins: [],
 } satisfies Config;
