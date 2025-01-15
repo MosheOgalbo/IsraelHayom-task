@@ -1,15 +1,14 @@
-# Dockerfile for frontend
-FROM node:16
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package.json ./
-COPY tsconfig.json ./
+COPY package*.json ./
+RUN npm install
+
 COPY . .
 
-RUN npm install
 RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
