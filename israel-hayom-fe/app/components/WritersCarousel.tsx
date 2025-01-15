@@ -8,16 +8,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useState, useEffect } from "react";
+import { Writer } from "@/lib/types";
 
-interface Writer {
-  id: number;
-  name: string;
-  imageUrl: string;
-  latestPost: {
-    id: number;
-    title: string;
-  };
-}
+
 
 const WritersCarousel = () => {
   const router = useRouter();
