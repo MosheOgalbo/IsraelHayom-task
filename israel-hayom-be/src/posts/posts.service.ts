@@ -2,6 +2,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { Prisma } from '@prisma/client';
 
 // const prisma = new PrismaService();
 
@@ -16,6 +17,12 @@ export class PostsService {
         url,
         writerId,
       },
+    });
+  }
+// Get a post by ID
+async getPostById(id: string) {
+    return this.prisma.posts.findUnique({
+      where: { id },
     });
   }
 }

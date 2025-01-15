@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { Prisma } from '@prisma/client';
+
 
 @Injectable()
 export class WritersService {
   constructor(private prisma: PrismaService) {}
 
+  // Get all writers with their latest post
   async getWritersWithLatestPost() {
     return this.prisma.writers.findMany({
       include: {
@@ -17,6 +20,15 @@ export class WritersService {
         posts: {
           _count: 'desc',
         },
+      },
+    });
+  }
+  // Get a single writer by ID
+  async getWriterById(id: string) {
+    return this.prisma.writers.findUnique({
+      where: { id },
+      include: {
+        posts: true,
       },
     });
   }
