@@ -3,74 +3,68 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Virtual } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useState, useEffect } from "react";
+
+interface Writer {
+  id: number;
+  name: string;
+  imageUrl: string;
+  latestPost: {
+    id: number;
+    title: string;
+  };
+}
 
 const WritersCarousel = () => {
   const router = useRouter();
+  const [writersData, setWritersData] = useState<Writer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // נתוני דמה
-  const writersData = [
-    {
-      id: 1,
-      name: "כותב א",
-      imageUrl: "/images/writer1.jpg",
-      latestPost: {
-        id: 101,
-        title: "כותרת המאמר הראשון",
-        content: "תוכן מלא של המאמר הראשון...",
-      },
-    },
-    {
-      id: 2,
-      name: "כותב ב",
-      imageUrl: "/images/writer2.jpg",
-      latestPost: {
-        id: 102,
-        title: "כותרת המאמר השני",
-        content: "תוכן מלא של המאמר השני...",
-      },
-    },
-    {
-      id: 3,
-      name: "כותב ג",
-      imageUrl: "/images/writer3.jpg",
-      latestPost: {
-        id: 103,
-        title: "כותרת המאמר השלישי",
-        content: "תוכן מלא של המאמר השלישי...",
-      },
-    },
-    {
-      id: 4,
-      name: "כותב ד",
-      imageUrl: "/images/writer4.jpg",
-      latestPost: {
-        id: 104,
-        title: "כותרת המאמר הרביעי",
-        content: "תוכן מלא של המאמר הרביעי...",
-      },
-    },
-    // ניתן להוסיף כותבים נוספים כאן
-  ];
+  useEffect(() => {
+    const fetchWriters = async () => {
+      try {
+        const response = await fetch("/api/writers");
+        if (!response.ok) {
+          throw new Error("Failed to fetch writers");
+        }
+        const data = await response.json();
+        setWritersData(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to fetch writers");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWriters();
+  }, []);
 
+  if (loading) return <div>טוען...</div>;
+  if (error)
+    return (
+      <div>
+        <h2 className="text-2xl font-bold mb-4 text-red-500">קרוסלת כותבים</h2>
+        <div>שגיאה: {error}</div>
+      </div>
+    );
 
+    const navigateToWriterPage = (writerId: string) => {
+        router.push(`/writers/${writerId}`);
+      };
 
-  const navigateToWriterPage = (writerId: string) => {
-    router.push(`/writers/${writerId}`);
-  };
-
-  const navigateToArticlePage = (articleId: string) => {
-    router.push(`/articles/${articleId}`);
-  };
+      const navigateToArticlePage = (articleId: string) => {
+        router.push(`/articles/${articleId}`);
+      };
 
   return (
     <div className="container mx-auto py-10">
       <h2 className="text-2xl font-bold text-[#FF5252] mb-6 text-center">כותבי הטורים</h2>
       <Swiper
-        modules={[Virtual, Navigation, Pagination]}
+        modules={[Navigation, Pagination]}
         slidesPerView={1}
         spaceBetween={10}
         breakpoints={{
@@ -89,19 +83,20 @@ const WritersCarousel = () => {
         }}
         pagination={{ clickable: true }}
         navigation
-        virtual
         className="max-w-[90%] lg:max-w-[80%]"
       >
         {writersData.map((writer) => (
           <SwiperSlide key={writer.id}>
             <div className="p-5 border-2 border-red-500 rounded-lg shadow-md">
-              <Image
-                src={writer.imageUrl}
-                alt={writer.name}
-                width={100}
-                height={100}
-                className="w-full h-auto mb-4 rounded-full border-4 border-red-500"
-              />
+              <div className="relative w-full h-64 mb-4">
+                <Image
+                  src={writer.imageUrl}
+                  alt={writer.name}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-full border-4 border-red-500"
+                />
+              </div>
               <h3
                 className="text-lg font-semibold text-gray-800 cursor-pointer"
                 style={{ fontSize: "22px" }}

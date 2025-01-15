@@ -1,12 +1,27 @@
-
 version: '3.8'
+
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
+  frontend:
+    build:
+      context: ./israel-hayom-fe
     ports:
-      - '27017:27017'
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./israel-hayom-be
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mydb
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
     volumes:
-      - mongo-data:/data/db
-volumes:
-  mongo-data:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
