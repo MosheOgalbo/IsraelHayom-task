@@ -91,8 +91,8 @@ const WritersCarousel = () => {
                 />
               </div>
               <h3
-                className="text-lg font-semibold text-gray-800 cursor-pointer"
-                style={{ fontSize: "22px" }}
+                className="text-lg font-semibold text-[#181818] cursor-pointer"
+                style={{ fontSize: "22px", fontFamily: "Arial" }}
                 onClick={() => navigateToWriterPage(`${writer.id}`)}
               >
                 {writer.name}
