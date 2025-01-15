@@ -7,34 +7,11 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { useState, useEffect } from "react";
-import { Writer } from "@/lib/types";
-
-
+import useFetchWriters from "@/lib/hooks";
 
 const WritersCarousel = () => {
   const router = useRouter();
-  const [writersData, setWritersData] = useState<Writer[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchWriters = async () => {
-      try {
-        const response = await fetch("/api/writers");
-        if (!response.ok) {
-          throw new Error("Failed to fetch writers");
-        }
-        const data = await response.json();
-        setWritersData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to fetch writers");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchWriters();
-  }, []);
+  const { writersData, loading, error } = useFetchWriters();
 
   if (loading) return <div>טוען...</div>;
   if (error)
