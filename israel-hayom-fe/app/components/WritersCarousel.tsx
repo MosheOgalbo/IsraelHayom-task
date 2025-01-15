@@ -98,8 +98,8 @@ const WritersCarousel = () => {
                 {writer.name}
               </h3>
               <p
-                className="text-sm text-gray-600 cursor-pointer"
-                style={{ fontSize: "16px" }}
+                className="text-sm text-[#999999] cursor-pointer"
+                style={{ fontSize: "16px", fontFamily: "Arial" }}
                 onClick={() => navigateToArticlePage(`${writer.latestPost.id}`)}
               >
                 {writer.latestPost.title}
@@ -107,7 +107,7 @@ const WritersCarousel = () => {
               <button
                 onClick={() => navigateToArticlePage(`${writer.latestPost.id}`)}
                 className="text-red-500 text-sm mt-2"
-                style={{ fontSize: "14px" }}
+                style={{ fontSize: "14px", fontFamily: "Arial" }}
               >
                 קרא עוד
               </button>
