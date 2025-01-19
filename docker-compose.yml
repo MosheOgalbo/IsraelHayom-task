@@ -13,9 +13,9 @@ services:
     build:
       context: ./israel-hayom-be
     ports:
-      - "3001:3001"
+      - "8000:8000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/mydb
+      - DATABASE_URL=mongodb://root:example@mongodb:27017/mydatabase?authSource=admin
     depends_on:
       - mongo
 

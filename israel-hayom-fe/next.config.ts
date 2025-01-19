@@ -5,7 +5,7 @@ const nextConfig = {
       return [
         {
           source: '/api/writers',
-          destination: 'http://localhost:3000/writers',
+          destination: 'http://localhost:8000/writers',
         },
       ];
     },
