@@ -1,8 +1,7 @@
 // posts.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { Prisma } from '@prisma/client';
+import { PrismaService } from '../Prisma/prisma.service';
 
 // const prisma = new PrismaService();
 
@@ -19,10 +18,13 @@ export class PostsService {
       },
     });
   }
-// Get a post by ID
-async getPostById(id: string) {
+  // Get a post by ID
+  async getPostById(id: string) {
     return this.prisma.posts.findUnique({
       where: { id },
     });
+  }
+  async getAllPosts() {
+    return this.prisma.posts.findMany();
   }
 }

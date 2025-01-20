@@ -18,8 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "seed": "ts-node dist/prisma/seed.ts",
-    "migrate": "prisma migrate deploy"
+    "seed": "tsx prisma/seed.ts",
+    "migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:push": "npx prisma db push",
+    "db:migrate:up": "npx migrate-mongo up",
+    "db:migrate:down": "npx migrate-mongo down"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.15",
@@ -31,7 +35,7 @@
     "class": "^0.1.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "mongoose": "^8.9.4",
+    "mongoose": "^8.9.5",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "ts-node-dev": "^2.0.0"
@@ -59,6 +63,7 @@
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   },
   "jest": {

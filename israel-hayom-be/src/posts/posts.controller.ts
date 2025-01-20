@@ -13,4 +13,8 @@ export class PostsController {
   async getPost(@Param('id') id: string) {
     return this.postsService.getPostById(id);
   }
+  @Get()
+  async getAllPosts() {
+    return this.postsService.getAllPosts();
+  }
 }
