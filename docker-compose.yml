@@ -18,6 +18,7 @@ services:
       DATABASE_URL: "mongodb://mongo:27017/israel-hayom?authSource=admin"
     depends_on:
       - mongo
+    # command: sh -c "npx migrate-mongo up && npx prisma generate"
 
   mongo:
     image: mongo
